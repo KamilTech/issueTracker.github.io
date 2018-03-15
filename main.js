@@ -5,6 +5,15 @@ document.getElementById('issuesForm').addEventListener('submit', saveIssues);
     fetchIssues();
 })();
 
+// Function to check if fields have passed validation
+function checkValidation() {
+    if (formValid.description && formValid.serverity && formValid.assignedTo) {
+        $('#submitButton').removeAttr('disabled');
+    } else {
+        $('#submitButton').attr('disabled', true);
+    }
+}
+
 function fetchIssues() {
     document.getElementById('issuesList').innerHTML = '';
     let data = JSON.parse(localStorage.getItem('issues'));
@@ -23,7 +32,7 @@ function saveIssues(e) {
         issuesId: (Date.now().toString(36) + Math.random().toString(36).substr(2, 5)).toUpperCase() + '-' + Math.random().toString(36).substr(2, 9) + '-' + Math.random().toString(36).substr(2, 9),
         status: 'Open',
         issuesDescription: document.getElementById('description').value,
-        issuesServerity: document.getElementById('inputGroupSelect01').value,
+        issuesServerity: document.getElementById('select').value,
         issuesAssignedTo: document.getElementById('assignedTo').value
     }
 
@@ -37,6 +46,10 @@ function saveIssues(e) {
         localStorage.setItem('issues', JSON.stringify(issues));
     }
     document.getElementById('issuesForm').reset();
+    formValid.assignedTo = false;
+    formValid.serverity = false;
+    formValid.description = false;
+    checkValidation();
     fetchIssues();
     e.preventDefault();
 }
@@ -63,3 +76,110 @@ function createForm(id, description, severity, assignedTo, status) {
         '<a href="#" onclick="deleteIssue(\'' + id + '\')" class="btn btn-danger">Delete</a>' +
         '</div>';
 }
+
+// Jquery Validation
+var formValid = {
+    description: false, // description field
+    serverity: false, // serverity field
+    assignedTo: false // Assigned to field
+};
+
+$('#description').on('input', function () {
+    let description = $(this).val();
+
+    function msg(body) {
+        $('#description-error').text(body).show();
+        $('#description').attr('style', 'border-color: red');
+    };
+
+    function hide() {
+        $('#description-error').hide();
+        $('#description').attr('style', 'border-color: none');
+    };
+
+    if (description.length < 1) {
+        msg('This field is required.');
+        formValid.description = false;
+        checkValidation();
+    } else {
+        hide();
+        formValid.description = true;
+        checkValidation();
+        var testExp = new RegExp(/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/);
+        if (!testExp.test(description)) {
+            msg('Must not have any special characters');
+            formValid.description = false;
+            checkValidation();
+        } else {
+            hide();
+            formValid.description = true;
+            checkValidation();
+            if (description.length < 3 || description.length > 500) {
+                msg('Must be at least 3 characters but no more than 500');
+                formValid.description = false;
+                checkValidation();
+            } else {
+                hide();
+                formValid.description = true;
+                checkValidation();
+            }
+        }
+    }
+});
+
+// Validation for E-mail Input
+$('#assignedTo').on('input', function () {
+    var assignedTo = $(this).val();
+
+    function msg(body) {
+        $('#assignedTo-error').text(body).show();
+        $('#assignedTo').attr('style', 'border-color: red');
+    };
+
+    function hide() {
+        $('#assignedTo-error').hide();
+        $('#assignedTo').attr('style', 'border-color: none');
+    };
+
+    if (assignedTo.length < 1) {
+        msg('This field is required.');
+        formValid.assignedTo = false;
+        checkValidation();
+    } else {
+        hide();
+        formValid.assignedTo = true;
+        checkValidation();
+        var testExp = new RegExp(/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/);
+        if (!testExp.test(assignedTo)) {
+            msg('Must not have any special characters');
+            formValid.assignedTo = false;
+            checkValidation();
+        } else {
+            hide();
+            formValid.assignedTo = true;
+            checkValidation();
+            if (assignedTo.length < 2 || assignedTo.length > 50) {
+                msg('Must be at least 2 characters but no more than 50');
+                formValid.assignedTo = false;
+                checkValidation();
+            } else {
+                hide();
+                formValid.assignedTo = true;
+                checkValidation();
+            }
+        }
+    }
+});
+
+$( "#select" ).change(function() {
+    let selectForm = $(this).val();
+    
+    var testExp = new RegExp(/\b(Low|Medium|Hard)\b/);
+    if (!testExp.test(selectForm)) {
+        formValid.serverity = false;
+        checkValidation();
+    } else {
+        formValid.serverity = true;
+        checkValidation();
+    }
+});

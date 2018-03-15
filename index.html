@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 </head>
+<style>
+    #description-error,
+    #assignedTo-error {
+        display: none;
+    }
+
+</style>
 
 <body>
     <div class="container">
@@ -15,30 +22,33 @@
         <div class="jumbotron">
             <h5>Add new Issues</h5>
             <form id="issuesForm">
-                <div class="input-group">
-                    <textarea placeholder="Description" class="form-control" aria-label="With textarea" id="description"></textarea>
+                <div class="form-group">
+                    <div class="input-group">
+                        <textarea placeholder="Description" class="form-control" aria-label="With textarea" id="description" autocomplete="off"></textarea>
+                    </div>
+                    <div id="description-error" class="text-danger"></div>
                 </div>
-                <br>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Serverity</label>
                     </div>
-                    <select class="custom-select" id="inputGroupSelect01">
-                <option selected disabled>Choose</option>
-                <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
-                <option value="Hard">Hard</option>
-              </select>
+                    <select class="custom-select" id="select" required>
+                        <option selected disabled>Choose</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Hard">Hard</option>
+                    </select>
                 </div>
                 <br>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-default">Assigned to</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="assignedTo">
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="assignedTo" autocomplete="off">
                 </div>
+                <div id="assignedTo-error" class="text-danger"></div>
                 <hr class="my-4">
-                <button type="submit" class="btn btn-primary">Add new issues</button>
+                <button id="submitButton" type="submit" class="btn btn-primary" disabled>Add new issues</button>
             </form>
         </div>
         <div class="col-lg-12">
