@@ -54,11 +54,24 @@ function saveIssues(e) {
     e.preventDefault();
 }
 
+function setStatusClosed(id) {
+    let issues = JSON.parse(localStorage.getItem('issues'));
+    for (var i = 0; i < issues.length; i++) {
+        if (issues[i].issuesId == id) {
+            issues[i].status = 'Closed';
+            break;
+        }
+    }
+    localStorage.setItem('issues', JSON.stringify(issues));
+    fetchIssues();
+}
+
 function deleteIssue(id) {
     let issues = JSON.parse(localStorage.getItem('issues'));
     for (var i = 0; i < issues.length; i++) {
         if (issues[i].issuesId == id) {
             issues.splice(i, 1);
+            break;
         }
     }
     localStorage.setItem('issues', JSON.stringify(issues));
