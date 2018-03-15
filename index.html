@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>JS Issue Tracker</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="container">
-        <h1 class="text-center">JS Issue Tracker</h1>
+        <h1 class="display-4 text-center">JS Issue Tracker</h1>
         <div class="jumbotron">
             <h5>Add new Issues</h5>
-            <div class="input-group">
-                <textarea placeholder="Description" class="form-control" aria-label="With textarea" id="description"></textarea>
-            </div>
-            <br>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Serverity</label>
+            <form id="issuesForm">
+                <div class="input-group">
+                    <textarea placeholder="Description" class="form-control" aria-label="With textarea" id="description"></textarea>
                 </div>
-                <select class="custom-select" id="inputGroupSelect01">
+                <br>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Serverity</label>
+                    </div>
+                    <select class="custom-select" id="inputGroupSelect01">
                 <option selected disabled>Choose</option>
                 <option value="Low">Low</option>
                 <option value="Medium">Medium</option>
                 <option value="Hard">Hard</option>
               </select>
-            </div>
-            <br>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Assigned to</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="assignedTo">
-            </div>
-            <hr class="my-4">
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Add issues</a>
-            </p>
+                <br>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Assigned to</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="assignedTo">
+                </div>
+                <hr class="my-4">
+                <button type="submit" class="btn btn-primary">Add new issues</button>
+            </form>
         </div>
         <div class="col-lg-12">
             <div id="issuesList">
-                
             </div>
         </div>
     </div>
@@ -50,4 +52,5 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="main.js"></script>
 </body>
+
 </html>
