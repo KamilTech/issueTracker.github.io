@@ -184,9 +184,9 @@ $('#assignedTo').on('input', function () {
     }
 });
 
-$( "#select" ).change(function() {
+$("#select").change(function () {
     let selectForm = $(this).val();
-    
+
     var testExp = new RegExp(/\b(Low|Medium|Hard)\b/);
     if (!testExp.test(selectForm)) {
         formValid.serverity = false;
